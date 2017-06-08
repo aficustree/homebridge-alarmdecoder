@@ -4,6 +4,9 @@ Homebridge plugin that creates a SecuritySystem device which uses configurable H
 This plugin can be used as a security system in HomeKit/Homebridge. It creates a Homebridge accessory which uses HTTP calls to arm, disarm and check the status of security systems 
 and provides the Service.SecuritySystem service to HomeKit with both the SecuritySystemCurrentState and the SecuritySystemTargetState characteristics implemented.
 
+## Warning
+This fork is under active development and does not function
+
 ## Installation
 
 1. Install homebridge using: npm install -g homebridge
