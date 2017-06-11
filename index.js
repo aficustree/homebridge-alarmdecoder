@@ -116,6 +116,7 @@ HttpSecuritySystemAccessory.prototype = {
 			} else {
 				//var state = parseInt(responseBody);
 				var stateObj = JSON.parse(responseBody);
+				this.log(stateObj);
 				// TODO: WAS WORKING HERE
 				var isAlarming = stateObj.panel_alarming;
 				var isArmed = stateObj.panel_armed;
