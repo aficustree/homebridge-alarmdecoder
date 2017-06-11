@@ -52,10 +52,10 @@ HttpSecuritySystemAccessory.prototype = {
 	httpRequest: function(url, body, callback) {
 		request({
 			url: url,
-			body: body,
 			headers: {
-				"Authorization": "3PV46DGRJUKA"
+				"Authorization": this.key
 			},
+			body: body,
 			method: this.httpMethod,
 			auth: {
 				user: this.auth.username,
