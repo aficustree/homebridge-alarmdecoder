@@ -25,7 +25,7 @@ Configuration example with explanation
     "accessories": [
         {
             "accessory": "Http-SecuritySystem",
-            "name": "Home security",
+            "name": "Honeywell Alarm",
             "username": "",
             "password": "",
             "key": "",
