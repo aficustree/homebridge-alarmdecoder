@@ -54,7 +54,7 @@ HttpSecuritySystemAccessory.prototype = {
 			url: url,
 			body: body,
 			headers: {
-				"Authorization:": this.key
+				"Authorization": "3PV46DGRJUKA"
 			},
 			method: this.httpMethod,
 			auth: {
