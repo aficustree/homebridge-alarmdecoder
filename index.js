@@ -39,8 +39,8 @@ function HttpSecuritySystemAccessory(log, config) {
 	};
 	
 	this.httpMethod = config["http_method"] || "GET";
-	this.key = config.key || "";
-	this.log("adding header %s", this.key)
+	this.key = config["key"] || "";
+	this.log("setting key %s", this.key);
 	this.auth = {};
 	this.auth.username = config.username || "";
 	this.auth.password = config.password || "";
@@ -54,7 +54,7 @@ HttpSecuritySystemAccessory.prototype = {
 			url: url,
 			body: body,
 			headers: {
-				'Authorization' : this.key
+				'Authorization': this.key
 			},
 			method: this.httpMethod,
 			auth: {
