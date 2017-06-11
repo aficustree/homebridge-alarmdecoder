@@ -117,6 +117,10 @@ HttpSecuritySystemAccessory.prototype = {
 			} else {
 				//var state = parseInt(responseBody);
 				var stateObj = JSON.parse(responseBody);
+				if(stateObj.includes("error")) {
+					this.log('erroring due to reasons');
+					callback(error);
+				}
 				this.log(stateObj);
 				// TODO: WAS WORKING HERE
 				var isAlarming = stateObj.panel_alarming;
