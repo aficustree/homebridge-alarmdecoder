@@ -40,6 +40,7 @@ function HttpSecuritySystemAccessory(log, config) {
 	
 	this.httpMethod = config["http_method"] || "GET";
 	this.key = config.key || "";
+	this.log("adding header %s", this.key)
 	this.auth = {};
 	this.auth.username = config.username || "";
 	this.auth.password = config.password || "";
