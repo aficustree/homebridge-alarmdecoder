@@ -28,6 +28,7 @@ Configuration example with explanation
             "name": "Home security",
             "username": "",
             "password": "",
+            "key": "",
             "immediately": false,
             "http_method": "GET",
             "urls": {
