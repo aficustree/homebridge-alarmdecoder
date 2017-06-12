@@ -53,7 +53,9 @@ HttpSecuritySystemAccessory.prototype = {
 		request({
 			url: url,
 			headers: {
-				"Authorization": this.key
+				"Authorization": this.key,
+				'ContentType': 'application/json',
+				'Accept': 'application/json'
 			},
 			body: body,
 			method: method,
