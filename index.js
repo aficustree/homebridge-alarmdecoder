@@ -120,7 +120,9 @@ HttpSecuritySystemAccessory.prototype = {
 				if(stateObj.includes("error")) {
 					this.log('erroring due to reasons');
 					callback(error);
+					
 				}
+				else {
 				this.log(stateObj);
 				// TODO: WAS WORKING HERE
 				var isAlarming = stateObj.panel_alarming;
@@ -143,6 +145,7 @@ HttpSecuritySystemAccessory.prototype = {
 					state = 3;
 				this.log("State is currently %s", state);
 				callback(null, state);
+				}
 			}
 		}.bind(this));
 	},
