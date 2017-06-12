@@ -117,7 +117,7 @@ HttpSecuritySystemAccessory.prototype = {
 			} else {
 				//var state = parseInt(responseBody);
 				var stateObj = JSON.parse(responseBody);
-				if(stateObj.toString().includes("Error")) {
+				if(stateObj.toString().includes("7100")) {
 					this.log('erroring due to reasons');
 					callback(error);					
 				}
