@@ -57,11 +57,6 @@ HttpSecuritySystemAccessory.prototype = {
 			},
 			body: body,
 			method: this.httpMethod,
-			auth: {
-				user: this.auth.username,
-				pass: this.auth.password,
-				sendImmediately: this.auth.immediately
-			}
 		},
 		function(error, response, body) {
 			callback(error, response, body)
