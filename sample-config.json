@@ -11,18 +11,15 @@
     "accessories": [
         {
             "accessory": "Http-SecuritySystem",
-            "name": "Home security",
-            "username": "",
-            "password": "",
-            "immediately": false,
-            "http_method": "GET",
+            "name": "Alarm System",
+            "key": "YOUR API KEY FROM ALARMDECODER GUI",
             "urls": {
-                "stay": { "url": "http://localhost:1880/alarm/arm/stay", "body": "" },
-                "away": { "url": "http://localhost:1880/alarm/arm/away", "body": "" },
-                "night": { "url": "http://localhost:1880/alarm/arm/night", "body": "" },
-                "disarm": { "url": "http://localhost:1880/alarm/disarm", "body": "" },
-                "readCurrentState": { "url": "http://localhost:1880/alarm/check", "body": "" },
-                "readTargetState": { "url": "http://localhost:1880/alarm/check", "body": "" }
+                "stay": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11113" },
+                "away": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11112" },
+                "night": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "111133" },
+                "disarm": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11111" },
+                "readCurrentState": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder", "body": "" },
+                "readTargetState": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder", "body": "" }
             }
         }
     ]
