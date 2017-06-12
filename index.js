@@ -117,34 +117,33 @@ HttpSecuritySystemAccessory.prototype = {
 			} else {
 				//var state = parseInt(responseBody);
 				var stateObj = JSON.parse(responseBody);
-				this.log(stateObj.toString().includes("7100"));
-				if(stateObj.toString().includes("7100")) {
-					this.log('erroring due to reasons');
+				if(true) {
+					this.log(stateObj);
 					callback(error);					
 				}
 				else {
-				this.log(stateObj);
-				// TODO: WAS WORKING HERE
-				var isAlarming = stateObj.panel_alarming;
-				var isArmed = stateObj.panel_armed;
-				var isArmedStay = stateObj.panel_armed_stay;
-				var isArmedNight = false;
-				var lastmessage = stateObj.last_message_received;
-				if(lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT"))
-					isArmedNight = true;
-				/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
-				if(isAlarming)
-					state = 4
-				else if(isArmed && !isArmedNight && !isArmedStay)
-					state = 1;
-				else if(isArmedNight)
-					state = 2;
-				else if(isArmedStay)
-					state = 0;
-				else
-					state = 3;
-				this.log("State is currently %s", state);
-				callback(null, state);
+					this.log(stateObj);
+					// TODO: WAS WORKING HERE
+					var isAlarming = stateObj.panel_alarming;
+					var isArmed = stateObj.panel_armed;
+					var isArmedStay = stateObj.panel_armed_stay;
+					var isArmedNight = false;
+					var lastmessage = stateObj.last_message_received;
+					if(lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT"))
+						isArmedNight = true;
+					/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
+					if(isAlarming)
+						state = 4
+					else if(isArmed && !isArmedNight && !isArmedStay)
+						state = 1;
+					else if(isArmedNight)
+						state = 2;
+					else if(isArmedStay)
+						state = 0;
+					else
+						state = 3;
+					this.log("State is currently %s", state);
+					callback(null, state);
 				}
 			}
 		}.bind(this));
