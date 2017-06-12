@@ -85,7 +85,9 @@ HttpSecuritySystemAccessory.prototype = {
 		}
 		var method = cfg.method;
 		var url = cfg.url;
-		var body = cfg.body;
+		var tempObj = new Object();
+		tempObj.key="cfg.body";
+		var body = JSON.stringify(tempObj);
 		if (url) {
 			this.httpRequest(url, body, method, function(error, response, responseBody) {
 				if (error) {
