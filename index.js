@@ -112,11 +112,7 @@ HttpSecuritySystemAccessory.prototype = {
 			} else {
 				//var state = parseInt(responseBody);
 				var stateObj = JSON.parse(responseBody);
-				if(true) {
-					this.log(stateObj);
-					callback(error);					
-				}
-				else {
+
 					this.log(stateObj);
 					// TODO: WAS WORKING HERE
 					var isAlarming = stateObj.panel_alarming;
@@ -139,7 +135,7 @@ HttpSecuritySystemAccessory.prototype = {
 						state = 3;
 					this.log("State is currently %s", state);
 					callback(null, state);
-				}
+
 			}
 		}.bind(this));
 	},
