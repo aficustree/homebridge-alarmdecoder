@@ -10,7 +10,7 @@
 
     "accessories": [
         {
-            "accessory": "Http-SecuritySystem",
+            "accessory": "alarmdecoder",
             "name": "Alarm System",
             "key": "YOUR API KEY FROM ALARMDECODER GUI",
             "urls": {
