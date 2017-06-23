@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-http-securitysystem-alarmdecoder",
+  "name": "homebridge-alarmdecoder",
   "version": "0.1.0",
   "description": "HTTP based SecuritySystem plugin for homebridge: https://github.com/nfarina/homebridge, with readable state, modified to work with alarmdecoder",
   "license": "BSD-2-Clause",
@@ -12,20 +12,20 @@
     "node": ">=0.12.0",
     "homebridge": ">=0.2.0"
   },
-  "author": "Marcell Tooth",
+  "author": "Shaun Baker",
   "contributors": [
-    "Shaun Baker"
+    "Marcell Tooth"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/aficustree/homebridge-http-securitysystem-alarmdecoder.git"
+    "url": "git://github.com/aficustree/homebridge-alarmdecoder.git"
   },
   "dependencies": {
     "request": "^2.65.0"
   },
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/codetwice/homebridge-http-securitysystem/issues"
+    "url": "https://github.com/codetwice/homebridge-alarmdecoder/issues"
   },
   "main": "index.js",
   "scripts": {

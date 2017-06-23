@@ -1,4 +1,4 @@
-# homebridge-http-securitysystem-alarmdecoder
+# homebridge-alarmdecoder
 Homebridge plugin for the alarmdecoder (alarmdecoder.com) interface to Honeywell/DSC Systems. It requires a functioning alarmdecoder-webapp (https://www.alarmdecoder.com/wiki/index.php/AlarmDecoder_WebApp) for the homebridge plugin to contact (via the rest API). Please make sure your webapp is updated with the latest alarmdecoder python package. 
 
 This plugin can be used as a security system in HomeKit/Homebridge. It creates a Homebridge accessory which uses HTTP calls to arm, disarm and check the status of security systems 
@@ -7,7 +7,7 @@ and provides the Service.SecuritySystem service to HomeKit with both the Securit
 ## Installation
 
 1. Install homebridge using: npm install -g homebridge
-2. Install homebridge-http-securitysystem using: npm install -g git+https://github.com/aficustree/homebridge-http-securitysystem-alarmdecoder.git
+2. Install homebridge-alarmdecoder using: npm install -g git+https://github.com/aficustree/homebridge-alarmdecoder.git
 3. Update your configuration file. See sample-config.json in this repository for a sample. 
 
 ## Configuration
@@ -21,7 +21,7 @@ Configuration example with explanation
 ```
     "accessories": [
         {
-            "accessory": "Http-SecuritySystem",
+            "accessory": "alarmdecoder",
             "name": "Alarm System",
             "key": "YOUR API KEY FROM ALARMDECODER GUI",
             "urls": {

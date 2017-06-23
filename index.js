@@ -4,10 +4,10 @@ var request = require("request");
 module.exports = function(homebridge){
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
-	homebridge.registerAccessory("homebridge-http-securitysystem", "Http-SecuritySystem", HttpSecuritySystemAccessory);
+	homebridge.registerAccessory("homebridge-alarmdecoder", "alarmdecoder", alarmdecoderAccessory);
 }
 
-function HttpSecuritySystemAccessory(log, config) {
+function alarmdecoderAccessory(log, config) {
 	this.log = log;
 
 	// url info
@@ -48,7 +48,7 @@ function HttpSecuritySystemAccessory(log, config) {
 	this.name = config["name"];
 }
 
-HttpSecuritySystemAccessory.prototype = {
+alarmdecoderAccessory.prototype = {
 	httpRequest: function(url, body, method, callback) {
 		request({
 			url: url,
