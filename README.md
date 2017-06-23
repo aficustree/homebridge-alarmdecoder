@@ -7,7 +7,7 @@ and provides the Service.SecuritySystem service to HomeKit with both the Securit
 ## Installation
 
 1. Install homebridge using: npm install -g homebridge
-2. Install homebridge-alarmdecoder using: npm install -g git+https://github.com/aficustree/homebridge-alarmdecoder.git
+2. Install homebridge-alarmdecoder using: npm install -g git+https://github.com/aficustree/homebridge-alarmdecoder.git#master
 3. Update your configuration file. See sample-config.json in this repository for a sample. 
 
 ## Configuration
