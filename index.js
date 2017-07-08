@@ -122,7 +122,7 @@ alarmdecoderAccessory.prototype = {
 				var isArmedStay = stateObj.panel_armed_stay;
 				var isArmedNight = false;
 				var lastmessage = stateObj.last_message_received;
-				if(lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT"))
+				if(lastmessage && (lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT")))
 					isArmedNight = true;
 				/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
 				if(isAlarming)
