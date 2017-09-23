@@ -66,7 +66,7 @@ alarmdecoderAccessory.prototype = {
 			req.on('end', function() {
 			  this.log('Received notification and body data:');
 			  this.log(data.toString());
-			});
+			}.bind(this));
 		}	
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end();
