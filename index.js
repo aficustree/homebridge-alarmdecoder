@@ -48,7 +48,7 @@ function alarmdecoderAccessory(log, config) {
 	this.name = config["name"];
 	this.port = config["port"];
 	this.statusCode = 200;
-	this.listener = require('http').createServer(this.httpListener);
+	this.listener = require('http').createServer(this.httpListener.bind(this));
 	this.listener.listen(this.port);
 	this.log("Listening to port " + this.port);
 	this.log("Returning status code " + this.statusCode);
@@ -80,7 +80,7 @@ alarmdecoderAccessory.prototype = {
 				this.log('get current state failed');
 		}.bind(this));
 		
-	}.bind(this),
+	},
 	
 	
 	httpRequest: function(url, body, method, callback) {
