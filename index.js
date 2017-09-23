@@ -68,7 +68,7 @@ alarmdecoderAccessory.prototype = {
 			  this.log(data.toString());
 			});
 		}	
-		res.writeHead(statusCode, {'Content-Type': 'text/plain'});
+		res.writeHead(this.statusCode, {'Content-Type': 'text/plain'});
 		res.end();
 		this.log('getting current state');
 		this.getCurrentState(function(error, state) {
