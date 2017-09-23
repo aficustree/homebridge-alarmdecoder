@@ -80,7 +80,7 @@ alarmdecoderAccessory.prototype = {
 				this.log('get current state failed');
 		}.bind(this));
 		
-	}.bind(this),
+	},
 	
 	
 	httpRequest: function(url, body, method, callback) {
