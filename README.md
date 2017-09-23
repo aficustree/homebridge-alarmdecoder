@@ -2,7 +2,7 @@
 Homebridge plugin for the alarmdecoder (alarmdecoder.com) interface to Honeywell/DSC Systems. It requires a functioning alarmdecoder-webapp (https://www.alarmdecoder.com/wiki/index.php/AlarmDecoder_WebApp) for the homebridge plugin to contact (via the rest API). Please make sure your webapp is updated with the latest alarmdecoder python package. 
 
 This plugin can be used as a security system in HomeKit/Homebridge. It creates a Homebridge accessory which uses HTTP calls to arm, disarm and check the status of security systems 
-and provides the Service.SecuritySystem service to HomeKit with both the SecuritySystemCurrentState and the SecuritySystemTargetState characteristics implemented.
+and provides the Service.SecuritySystem service to HomeKit with both the SecuritySystemCurrentState and the SecuritySystemTargetState characteristics implemented. If alarmdecoder webui is setup to push notifications, system will listen on the noted port and execute a rest API query to get state. 
 
 ## Installation
 
@@ -24,6 +24,7 @@ Configuration example with explanation
             "accessory": "alarmdecoder",
             "name": "Alarm System",
             "key": "YOUR API KEY FROM ALARMDECODER GUI",
+            "port": port to listen on for push messages from alarmdecoder
             "urls": {
                 "stay": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11113" },
                 "away": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11112" },
