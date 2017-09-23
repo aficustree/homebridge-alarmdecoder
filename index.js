@@ -5,7 +5,7 @@ module.exports = function(homebridge){
 	Service = homebridge.hap.Service;
 	Characteristic = homebridge.hap.Characteristic;
 	homebridge.registerAccessory("homebridge-alarmdecoder", "alarmdecoder", alarmdecoderAccessory);
-}
+};
 
 function alarmdecoderAccessory(log, config) {
 	this.log = log;
@@ -46,9 +46,40 @@ function alarmdecoderAccessory(log, config) {
 	this.httpMethod = "GET";
 	this.key = config["key"] || "";
 	this.name = config["name"];
+	this.port = config["port"];
+	this.statusCode = 200;
+	this.listener = require('http').createServer(this.httpListener.bind(this));
+	this.listener.listen(this.port);
+	this.log("Listening to port " + this.port);
+	this.log("Returning status code " + this.statusCode);
+	
 }
 
 alarmdecoderAccessory.prototype = {
+	
+	httpListener: function(req, res) {
+		var data = '';
+		if (req.method == "POST") {
+			req.on('data', function(chunk) {
+			  data += chunk;
+			});		
+			req.on('end', function() {
+			  this.log('Received notification and body data:');
+			  this.log(data.toString());
+			});
+		}	
+		res.writeHead(statusCode, {'Content-Type': 'text/plain'});
+		res.end();
+		this.log('getting current state');
+		this.getCurrentState(function(error, state) {
+			if (!error && state != null) {
+				this.setTargetState(state,null);
+			}
+		}.bind(this));
+		
+	},
+	
+	
 	httpRequest: function(url, body, method, callback) {
 		request({
 			url: url,
@@ -61,8 +92,8 @@ alarmdecoderAccessory.prototype = {
 			method: method,
 		},
 		function(error, response, body) {
-			callback(error, response, body)
-		})
+			callback(error, response, body);
+		});
 	},
 
 	setTargetState: function(state, callback) {
@@ -114,7 +145,6 @@ alarmdecoderAccessory.prototype = {
 				this.log('GetState function failed: %s', error.message);
 				callback(error);
 			} else {
-
 				var stateObj = JSON.parse(responseBody);
 				this.log(stateObj);
 				var isAlarming = stateObj.panel_alarming;
@@ -126,7 +156,7 @@ alarmdecoderAccessory.prototype = {
 					isArmedNight = true;
 				/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
 				if(isAlarming)
-					state = 4
+					state = 4;
 				else if(isArmed && !isArmedNight && !isArmedStay)
 					state = 1;
 				else if(isArmedNight)
@@ -156,17 +186,16 @@ alarmdecoderAccessory.prototype = {
 	},
 
 	getServices: function() {
-        	this.securityService = new Service.SecuritySystem(this.name);
+		this.securityService = new Service.SecuritySystem(this.name);
+		this.securityService
+				.getCharacteristic(Characteristic.SecuritySystemCurrentState)
+				.on('get', this.getCurrentState.bind(this));
 
-        	this.securityService
-            		.getCharacteristic(Characteristic.SecuritySystemCurrentState)
-            		.on('get', this.getCurrentState.bind(this));
+		this.securityService
+				.getCharacteristic(Characteristic.SecuritySystemTargetState)
+				.on('get', this.getTargetState.bind(this))
+				.on('set', this.setTargetState.bind(this));
 
-        	this.securityService
-            		.getCharacteristic(Characteristic.SecuritySystemTargetState)
-            		.on('get', this.getTargetState.bind(this))
-            		.on('set', this.setTargetState.bind(this));
-
-        	return [this.securityService];
-    	}
+		return [this.securityService];
+	}
 };
