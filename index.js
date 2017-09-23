@@ -73,8 +73,11 @@ alarmdecoderAccessory.prototype = {
 		this.log('getting current state');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
+				this.log('get current state succeeding, pushing state');
 				this.setTargetState(state,null);
 			}
+			else
+				this.log('get current state failed');
 		}.bind(this));
 		
 	},
