@@ -24,7 +24,7 @@ Configuration example with explanation
             "accessory": "alarmdecoder",
             "name": "Alarm System",
             "key": "YOUR API KEY FROM ALARMDECODER GUI",
-            "port": port to listen on for push messages from alarmdecoder
+            "port": "port to listen on for push messages from alarmdecoder",
             "urls": {
                 "stay": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11113" },
                 "away": { "url": "http://YOURIP:YOURPORT/api/v1/alarmdecoder/send", "body": "11112" },

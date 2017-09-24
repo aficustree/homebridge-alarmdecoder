@@ -59,6 +59,7 @@ alarmdecoderAccessory.prototype = {
 	
 	httpListener: function(req, res) {
 		var data = '';
+		
 		if (req.method == "POST") {
 			req.on('data', function(chunk) {
 			  data += chunk;
