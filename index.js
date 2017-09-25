@@ -75,7 +75,7 @@ alarmdecoderAccessory.prototype = {
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeeding, pushing state to homekit');
-				this.securityService.updateCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
 			}
 			else
 				this.log('get current state failed');
