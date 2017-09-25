@@ -75,7 +75,7 @@ alarmdecoderAccessory.prototype = {
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeeding, pushing state to homekit');
-				this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				this.securityService.updateCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
 			}
 			else
 				this.log('get current state failed');
@@ -199,6 +199,12 @@ alarmdecoderAccessory.prototype = {
 				.on('get', this.getTargetState.bind(this))
 				.on('set', this.setTargetState.bind(this));
 
-		return [this.securityService];
+		this.informationService = new Service.AccessoryInformation();
+		informationService
+			.setCharacteristic(Characteristic.Name, this.name)
+			.setCharacteristic(Characteristic.Manufacturer, 'honeywell/dsc')
+			.setCharacteristic(Characteristic.Model, 'alarmdecoder-sensor plugin');
+
+		return [this.informationService, this.securityService];
 	}
 };
