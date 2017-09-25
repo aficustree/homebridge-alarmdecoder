@@ -200,7 +200,7 @@ alarmdecoderAccessory.prototype = {
 				.on('set', this.setTargetState.bind(this));
 
 		this.informationService = new Service.AccessoryInformation();
-		informationService
+		this.informationService
 			.setCharacteristic(Characteristic.Name, this.name)
 			.setCharacteristic(Characteristic.Manufacturer, 'honeywell/dsc')
 			.setCharacteristic(Characteristic.Model, 'alarmdecoder-sensor plugin');
