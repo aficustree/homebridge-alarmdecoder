@@ -75,9 +75,10 @@ alarmdecoderAccessory.prototype = {
 		this.log('getting current state');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
-				this.log('get current state succeeding, pushing state to homekit');
-				if(state == 1) {
+				this.log('get current state succeded, pushing state to homekit');
+				if(state == 0) {
 				// pausing for 2sec to see if night/immediate mode active
+					this.log('stay state detected, pausing')
 					waitUntil()
 						.interval(2000)
 						.times(1)
