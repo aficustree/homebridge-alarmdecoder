@@ -21,7 +21,8 @@
     "url": "git://github.com/aficustree/homebridge-alarmdecoder.git"
   },
   "dependencies": {
-    "request": "^2.65.0"
+    "request": "^2.65.0",
+    "wait-until":">=0.0.2"
   },
   "readmeFilename": "README.md",
   "bugs": {
