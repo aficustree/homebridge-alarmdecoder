@@ -92,10 +92,10 @@ alarmdecoderAccessory.prototype = {
 									this.log('get second current state failed');
 							});
 							return true;
-						})
+						}.bind(this))
 						.done(function(result) {
 							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
-						});
+						}.bind(this));
 				}
 				else 
 					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
