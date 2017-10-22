@@ -88,6 +88,7 @@ alarmdecoderAccessory.prototype = {
 								if(!error && state != null) {
 									that.log('second current state check succeeded, updating state to ' + nestedState);
 									state = nestedState;
+									that.log('state ' + state + ' nested state ' + nestedState);
 								}
 								else
 									that.log('get second current state failed');
