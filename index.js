@@ -73,7 +73,6 @@ alarmdecoderAccessory.prototype = {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end();
 		that = this;
-		this.log('getting current state');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeded, pushing state to homekit');
@@ -81,25 +80,19 @@ alarmdecoderAccessory.prototype = {
 				// pausing for 2sec to see if night/immediate mode active
 					this.log('stay state detected, pausing');
 					waitUntil()
-						.interval(3000)
+						.interval(2000)
 						.times(1)
 						.condition(function() {
 							that.getCurrentState(function(nestedError, nestedState){
 								if(!error && state != null) {
-									that.log('second current state check succeeded, updating state to ' + nestedState);
 									state = nestedState;
-									that.log('state ' + state + ' nested state ' + nestedState);
 									that.log("pushing " + state + " to homekit");
 									that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 								}
-								else
-									that.log('get second current state failed');
 							});
 							return false;
 						})
-						.done(function(result) {
-							null;
-						});
+						.done(null);
 				}
 				else 
 					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
