@@ -89,6 +89,8 @@ alarmdecoderAccessory.prototype = {
 									that.log('second current state check succeeded, updating state to ' + nestedState);
 									state = nestedState;
 									that.log('state ' + state + ' nested state ' + nestedState);
+									that.log("pushing " + state + " to homekit");
+									that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 								}
 								else
 									that.log('get second current state failed');
@@ -96,8 +98,7 @@ alarmdecoderAccessory.prototype = {
 							return false;
 						})
 						.done(function(result) {
-							that.log("pushing " + state + " to homekit");
-							that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+							null;
 						});
 				}
 				else 
