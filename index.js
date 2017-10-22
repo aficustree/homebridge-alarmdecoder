@@ -72,6 +72,7 @@ alarmdecoderAccessory.prototype = {
 		}	
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end();
+		that = this;
 		this.log('getting current state');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
@@ -85,11 +86,11 @@ alarmdecoderAccessory.prototype = {
 						.condition(function() {
 							this.getCurrentState(function(nestedError, nestedState){
 								if(!error && state != null) {
-									this.log('second current state check succeeded, updating state')
+									that.log('second current state check succeeded, updating state')
 									state = nestedState;
 								}
 								else
-									this.log('get second current state failed');
+									that.log('get second current state failed');
 							});
 							return true;
 						}.bind(this))
