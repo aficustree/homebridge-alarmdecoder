@@ -92,10 +92,9 @@ alarmdecoderAccessory.prototype = {
 								else
 									that.log('get second current state failed');
 							});
-							return true;
 						}.bind(this))
 						.done(function(result) {
-							that.log("pushing " + state + " to homekit");
+							this.log("pushing " + state + " to homekit");
 							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 						}.bind(this));
 				}
