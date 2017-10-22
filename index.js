@@ -79,15 +79,16 @@ alarmdecoderAccessory.prototype = {
 				this.log('get current state succeded, pushing state to homekit');
 				if(state == 0) {
 				// pausing for 2sec to see if night/immediate mode active
-					this.log('stay state detected, pausing')
+					this.log('stay state detected, pausing');
 					waitUntil()
 						.interval(2000)
 						.times(1)
 						.condition(function() {
 							this.getCurrentState(function(nestedError, nestedState){
 								if(!error && state != null) {
-									that.log('second current state check succeeded, updating state')
+									that.log('second current state check succeeded, updating state' + nestedState);
 									state = nestedState;
+									that.log(state)
 								}
 								else
 									that.log('get second current state failed');
