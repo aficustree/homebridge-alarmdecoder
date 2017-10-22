@@ -95,8 +95,8 @@ alarmdecoderAccessory.prototype = {
 							return false;
 						}.bind(this))
 						.done(function(result) {
-							this.log("pushing " + state + " to homekit");
-							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+							that.log("pushing " + state + " to homekit");
+							that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 						}.bind(this));
 				}
 				else 
