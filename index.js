@@ -1,5 +1,6 @@
 var Service, Characteristic;
 var request = require("request");
+var waitUntil = require('wait-until');
 
 module.exports = function(homebridge){
 	Service = homebridge.hap.Service;
@@ -75,7 +76,28 @@ alarmdecoderAccessory.prototype = {
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeeding, pushing state to homekit');
-				this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				if(state == 1) {
+				// pausing for 2sec to see if night/immediate mode active
+					waitUntil()
+						.interval(2000)
+						.times(1)
+						.condition(function() {
+							this.getCurrentState(function(nestedError, nestedState){
+								if(!error && state != null) {
+									this.log('second current state check succeeded, updating state')
+									state = nestedState;
+								}
+								else
+									this.log('get second current state failed');
+							});
+							return true;
+						})
+						.done(function(result) {
+							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+						});
+				}
+				else 
+					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
 			}
 			else
 				this.log('get current state failed');
@@ -203,7 +225,7 @@ alarmdecoderAccessory.prototype = {
 		this.informationService
 			.setCharacteristic(Characteristic.Name, this.name)
 			.setCharacteristic(Characteristic.Manufacturer, 'honeywell/dsc')
-			.setCharacteristic(Characteristic.Model, 'alarmdecoder-sensor plugin');
+			.setCharacteristic(Characteristic.Model, 'alarmdecoder');
 
 		return [this.informationService, this.securityService];
 	}
