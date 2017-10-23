@@ -86,9 +86,7 @@ alarmdecoderAccessory.prototype = {
 						.condition(function() {
 							that.getCurrentState(function(nestedError, nestedState){
 								if(!error && state != null) {
-									that.log('second current state check succeeded, updating state to ' + nestedState);
 									state = nestedState;
-									that.log('state ' + state + ' nested state ' + nestedState);
 									that.log("pushing " + state + " to homekit");
 									that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 								}
