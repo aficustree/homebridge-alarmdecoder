@@ -105,8 +105,7 @@ alarmdecoderAccessory.prototype = {
 			else
 				this.log('get current state failed');
 		}.bind(this));
-	},
-	
+	},	
 	
 	httpRequest: function(url, body, method, callback) {
 		request({
@@ -153,7 +152,7 @@ alarmdecoderAccessory.prototype = {
 					this.log('SetState function failed: %s', error.message);
 					callback(error);
 				} else {
-					this.log('SetState function succeeded!');
+					this.log('SetState function succeeded!',response);
 					self.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 					callback(error, response, state);
 				}
