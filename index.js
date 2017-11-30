@@ -206,7 +206,7 @@ alarmdecoderAccessory.prototype = {
 	},
 	getTargetState: function(callback) {
 		this.log("Getting target state");
-		this.getState(this.urls.readTargetState.url, this.urls.readTargetState.body, callback);
+		//this.getState(this.urls.readTargetState.url, this.urls.readTargetState.body, callback);
 	},
 	identify: function(callback) {
 		this.log("Identify requested!");
