@@ -152,9 +152,8 @@ alarmdecoderAccessory.prototype = {
 					this.log('SetState function failed: %s', error.message);
 					callback(error);
 				} else {
-					//this.log('SetState function succeeded!',response);
 					this.log('SetState function succeeded!');
-					self.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+					//self.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
 					callback(error, response, state);
 				}
 			}.bind(this));
