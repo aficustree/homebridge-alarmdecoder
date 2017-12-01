@@ -81,9 +81,12 @@ alarmdecoderAccessory.prototype = {
 				// pausing for 2sec to see if night/immediate mode active
 					this.log('stay state detected, pausing');
 					waitUntil()
-						.interval(5000)
+						.interval(3000)
 						.times(1)
 						.condition(function() {
+							return false;
+						})
+						.done(function(result) {
 							that.getCurrentState(function(nestedError, nestedState){
 								if(!error && state != null) {
 									state = nestedState;
@@ -93,10 +96,6 @@ alarmdecoderAccessory.prototype = {
 								else
 									that.log('get second current state failed');
 							});
-							return false;
-						})
-						.done(function(result) {
-							null;
 						});
 				}
 				else 
