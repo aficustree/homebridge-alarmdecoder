@@ -76,7 +76,7 @@ alarmdecoderAccessory.prototype = {
 		this.log('Getting current state since ping received');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
-				this.log('get current state succeded, pushing state to homekit');
+				this.log('get current state succeded');
 				if(state == 0) {
 				// pausing for 2sec to see if night/immediate mode active
 					this.log('stay state detected, pausing');
@@ -99,6 +99,7 @@ alarmdecoderAccessory.prototype = {
 						});
 				}
 				else 
+					this.log("pushing" + state + " to homekit");
 					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
 			}
 			else
