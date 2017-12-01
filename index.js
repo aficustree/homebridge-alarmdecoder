@@ -73,7 +73,7 @@ alarmdecoderAccessory.prototype = {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end();
 		that = this;
-		this.log('getting current state');
+		this.log('Getting current state since ping received');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeded, pushing state to homekit');
@@ -81,7 +81,7 @@ alarmdecoderAccessory.prototype = {
 				// pausing for 2sec to see if night/immediate mode active
 					this.log('stay state detected, pausing');
 					waitUntil()
-						.interval(3000)
+						.interval(10000)
 						.times(1)
 						.condition(function() {
 							return false;
