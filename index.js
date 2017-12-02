@@ -76,8 +76,22 @@ alarmdecoderAccessory.prototype = {
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeded');
-				this.log("pushing" + state + " to homekit");
-				this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				if (state == 0) {
+					this.log("state 0 detected, checking again for modifiers");
+					waitUntil()
+						.interval(2000)
+						.times(1)
+						.condition(function() {return false;})
+						.done(function(result) {
+							this.getCurrentState(function(nestederror, nestedstate) {
+							this.log("pushing nested" + nestedstate + " to homekit");
+							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, nestedstate);
+					}.bind(this));}.bind(this));
+				}
+				else {
+					this.log("pushing " + state + " to homekit");
+					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				}
 			}
 			else
 				this.log('get current state failed');
@@ -141,19 +155,20 @@ alarmdecoderAccessory.prototype = {
 		if (!url) { 
 			callback(null); 
 		}
-		var  method = this.urls.readCurrentState.method;
+		let  method = this.urls.readCurrentState.method;
 		this.httpRequest(url, body, method, function(error, response, responseBody) {
 			if (error) {
 				this.log('GetState function failed: %s', error.message);
 				callback(error, null);
 			} else {
-				var stateObj = JSON.parse(responseBody);
+				let stateObj = JSON.parse(responseBody);
 				this.log(stateObj);
-				var isAlarming = stateObj.panel_alarming;
-				var isArmed = stateObj.panel_armed;
-				var isArmedStay = stateObj.panel_armed_stay;
-				var isArmedNight = false;
-				var lastmessage = stateObj.last_message_received;
+				let state = null;
+				let isAlarming = stateObj.panel_alarming;
+				let isArmed = stateObj.panel_armed;
+				let isArmedStay = stateObj.panel_armed_stay;
+				let isArmedNight = false;
+				let lastmessage = stateObj.last_message_received;
 				if(lastmessage && (lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT")))
 					isArmedNight = true;
 				/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
