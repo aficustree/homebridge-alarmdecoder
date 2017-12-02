@@ -53,7 +53,6 @@ function alarmdecoderAccessory(log, config) {
 	this.listener.listen(this.port);
 	this.log("Listening to port " + this.port);
 	this.log("Returning status code " + this.statusCode);
-	
 }
 
 alarmdecoderAccessory.prototype = {
@@ -77,30 +76,8 @@ alarmdecoderAccessory.prototype = {
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
 				this.log('get current state succeded');
-				if(state == 0) {
-				// pausing for 2sec to see if night/immediate mode active
-					this.log('stay state detected, pausing');
-					waitUntil()
-						.interval(10000)
-						.times(1)
-						.condition(function() {
-							return false;
-						})
-						.done(function(result) {
-							that.getCurrentState(function(nestedError, nestedState){
-								if(!error && state != null) {
-									state = nestedState;
-									that.log("pushing " + state + " to homekit");
-									that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
-								}
-								else
-									that.log('get second current state failed');
-							});
-						});
-				}
-				else 
-					this.log("pushing" + state + " to homekit");
-					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				this.log("pushing" + state + " to homekit");
+				this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
 			}
 			else
 				this.log('get current state failed');
@@ -118,9 +95,7 @@ alarmdecoderAccessory.prototype = {
 			body: body,
 			method: method,
 		},
-		function(error, response, body) {
-			callback(error, response, body);
-		});
+		callback);
 	},
 
 	setTargetState: function(state, callback) {
@@ -153,7 +128,7 @@ alarmdecoderAccessory.prototype = {
 					callback(error);
 				} else {
 					this.log('SetState function succeeded!');
-					//self.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+					//self.securityService.setCharacteristic(Characteristic.SecuritySystemTargetState, state);
 					callback(error, response, state);
 				}
 			}.bind(this));
@@ -170,7 +145,7 @@ alarmdecoderAccessory.prototype = {
 		this.httpRequest(url, body, method, function(error, response, responseBody) {
 			if (error) {
 				this.log('GetState function failed: %s', error.message);
-				callback(error);
+				callback(error, null);
 			} else {
 				var stateObj = JSON.parse(responseBody);
 				this.log(stateObj);
