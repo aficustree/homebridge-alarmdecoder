@@ -53,7 +53,6 @@ function alarmdecoderAccessory(log, config) {
 	this.listener.listen(this.port);
 	this.log("Listening to port " + this.port);
 	this.log("Returning status code " + this.statusCode);
-	
 }
 
 alarmdecoderAccessory.prototype = {
@@ -73,40 +72,31 @@ alarmdecoderAccessory.prototype = {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end();
 		that = this;
-		this.log('getting current state');
+		this.log('Getting current state since ping received');
 		this.getCurrentState(function(error, state) {
 			if (!error && state != null) {
-				this.log('get current state succeded, pushing state to homekit');
-				if(state == 0) {
-				// pausing for 2sec to see if night/immediate mode active
-					this.log('stay state detected, pausing');
+				this.log('get current state succeded');
+				if (state == 0) {
+					this.log("state 0 detected, checking again for modifiers");
 					waitUntil()
-						.interval(3000)
+						.interval(2000)
 						.times(1)
-						.condition(function() {
-							that.getCurrentState(function(nestedError, nestedState){
-								if(!error && state != null) {
-									state = nestedState;
-									that.log("pushing " + state + " to homekit");
-									that.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
-								}
-								else
-									that.log('get second current state failed');
-							});
-							return false;
-						})
+						.condition(function() {return false;})
 						.done(function(result) {
-							null;
-						});
+							this.getCurrentState(function(nestederror, nestedstate) {
+							this.log("pushing nested" + nestedstate + " to homekit");
+							this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, nestedstate);
+					}.bind(this));}.bind(this));
 				}
-				else 
+				else {
+					this.log("pushing " + state + " to homekit");
 					this.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);				
+				}
 			}
 			else
 				this.log('get current state failed');
 		}.bind(this));
-	},
-	
+	},	
 	
 	httpRequest: function(url, body, method, callback) {
 		request({
@@ -119,9 +109,7 @@ alarmdecoderAccessory.prototype = {
 			body: body,
 			method: method,
 		},
-		function(error, response, body) {
-			callback(error, response, body);
-		});
+		callback);
 	},
 
 	setTargetState: function(state, callback) {
@@ -154,7 +142,7 @@ alarmdecoderAccessory.prototype = {
 					callback(error);
 				} else {
 					this.log('SetState function succeeded!');
-					self.securityService.setCharacteristic(Characteristic.SecuritySystemCurrentState, state);
+					//self.securityService.setCharacteristic(Characteristic.SecuritySystemTargetState, state);
 					callback(error, response, state);
 				}
 			}.bind(this));
@@ -167,19 +155,20 @@ alarmdecoderAccessory.prototype = {
 		if (!url) { 
 			callback(null); 
 		}
-		var  method = this.urls.readCurrentState.method;
+		let  method = this.urls.readCurrentState.method;
 		this.httpRequest(url, body, method, function(error, response, responseBody) {
 			if (error) {
 				this.log('GetState function failed: %s', error.message);
-				callback(error);
+				callback(error, null);
 			} else {
-				var stateObj = JSON.parse(responseBody);
+				let stateObj = JSON.parse(responseBody);
 				this.log(stateObj);
-				var isAlarming = stateObj.panel_alarming;
-				var isArmed = stateObj.panel_armed;
-				var isArmedStay = stateObj.panel_armed_stay;
-				var isArmedNight = false;
-				var lastmessage = stateObj.last_message_received;
+				let state = null;
+				let isAlarming = stateObj.panel_alarming;
+				let isArmed = stateObj.panel_armed;
+				let isArmedStay = stateObj.panel_armed_stay;
+				let isArmedNight = false;
+				let lastmessage = stateObj.last_message_received;
 				if(lastmessage && (lastmessage.includes("NIGHT") || lastmessage.includes("INSTANT")))
 					isArmedNight = true;
 				/* 0 = stay, 1 = away, 2 = night, 3 = disarmed */
