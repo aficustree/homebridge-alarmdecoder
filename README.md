@@ -1,4 +1,6 @@
 # homebridge-alarmdecoder
+Note: An updated version available at (https://github.com/aficustree/homebridge-alarmdecoder-platform) uses homebridge platforms and exposes sensors/zones as well. I will only update the platform version.
+
 Homebridge plugin for the alarmdecoder (alarmdecoder.com) interface to Honeywell/DSC Systems. It requires a functioning alarmdecoder-webapp (https://www.alarmdecoder.com/wiki/index.php/AlarmDecoder_WebApp) for the homebridge plugin to contact (via the rest API). Please make sure your webapp is updated with the latest alarmdecoder python package. 
 
 This plugin can be used as a security system in HomeKit/Homebridge. It creates a Homebridge accessory which uses HTTP calls to arm, disarm and check the status of security systems 
